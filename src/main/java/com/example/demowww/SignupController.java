@@ -1,47 +1,33 @@
 package com.example.demowww;
 
+import org.hibernate.annotations.common.reflection.XMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
 public class SignupController {
-    @Autowired UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
     @Autowired
     private SecurityUserDetailsService userDetailsManager;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
 
-    @RequestMapping(value = "/addToDb", method = RequestMethod.POST)
-    public @ResponseBody String create(User user) {
-        userRepository.save(user);
-        return "/register";
-
-        }
-
     @GetMapping("/")
     public String index() {
         return "index";
     }
-    @GetMapping("/login")
-    public String login(HttpServletRequest request, HttpSession session) {
-        session.setAttribute(
-                "error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION")
-        );
-        return "login";
-    }
+
     @GetMapping("/register")
     public String register() {
 
@@ -54,23 +40,16 @@ public class SignupController {
     )
     public void addUser(@RequestParam Map<String, String> body) {
         User user = new User();
-        user.setLogin(body.get("username"));
+        user.setLogin(body.get("login"));
         user.setPassword(passwordEncoder.encode(body.get("password")));
         user.setNotLocked(true);
+        user.setAge(Integer.parseInt(body.get("age")));
+        user.setName(body.get("surname"));
+        user.setSurname(body.get("surname"));
         userDetailsManager.createUser(user);
+        userRepository.save(user);
     }
-    private String getErrorMessage(HttpServletRequest request, String key) {
-        Exception exception = (Exception) request.getSession().getAttribute(key);
-        String error = "";
-        if (exception instanceof BadCredentialsException) {
-            error = "Invalid username and password!";
-        } else if (exception instanceof LockedException) {
-            error = exception.getMessage();
-        } else {
-            error = "Invalid username and password!";
-        }
-        return error;
-    }
+
 }
 
 
