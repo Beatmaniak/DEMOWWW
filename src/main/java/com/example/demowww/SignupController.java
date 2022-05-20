@@ -1,39 +1,78 @@
 package com.example.demowww;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 public class SignupController {
     @Autowired UserRepository userRepository;
-//    @GetMapping
-//    public  addedUser(Model model){
-//        model.addAttribute("string",userReporsitory.findAll());
-//        return "/signup";
-   // }
-    @PostMapping("/signup")
-    ResponseEntity<String> addUser(@Valid @RequestBody User user){
-        return  ResponseEntity.ok("Signed up");
-    }
-    @GetMapping("/signup")
-    public String login(@RequestParam(name="name", required=false, defaultValue="World") String name) {
-        return "/signup";
+    @Autowired
+    private SecurityUserDetailsService userDetailsManager;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-        }
 
     @RequestMapping(value = "/addToDb", method = RequestMethod.POST)
     public @ResponseBody String create(User user) {
         userRepository.save(user);
-        return "/signup";
+        return "/register";
 
         }
 
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+    @GetMapping("/login")
+    public String login(HttpServletRequest request, HttpSession session) {
+        session.setAttribute(
+                "error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION")
+        );
+        return "login";
+    }
+    @GetMapping("/register")
+    public String register() {
 
+        return "register";
+    }
+    @PostMapping(
+            value = "/register",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
+            MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }
+    )
+    public void addUser(@RequestParam Map<String, String> body) {
+        User user = new User();
+        user.setLogin(body.get("username"));
+        user.setPassword(passwordEncoder.encode(body.get("password")));
+        user.setNotLocked(true);
+        userDetailsManager.createUser(user);
+    }
+    private String getErrorMessage(HttpServletRequest request, String key) {
+        Exception exception = (Exception) request.getSession().getAttribute(key);
+        String error = "";
+        if (exception instanceof BadCredentialsException) {
+            error = "Invalid username and password!";
+        } else if (exception instanceof LockedException) {
+            error = exception.getMessage();
+        } else {
+            error = "Invalid username and password!";
+        }
+        return error;
+    }
 }
+
+
+
 

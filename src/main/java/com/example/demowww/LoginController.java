@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-    @GetMapping("/login")
-    public String login(@RequestParam(name="name", required=false, defaultValue="World") String name) {
-        return "login";
-    }}
+//    @GetMapping("/login")
+//    public String login(@RequestParam(name="name", required=false, defaultValue="World") String name) {
+//        return "login";
+//    }
+}
