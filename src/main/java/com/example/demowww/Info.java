@@ -1,10 +1,26 @@
 package com.example.demowww;
 
+import javax.persistence.*;
+
+@Entity
 public class Info {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id",updatable = false,insertable = false)
+    private Long id;
+    @Column(name = "Title")
     private String Title;
+    @Column(name = "Description")
     private String Description;
+    @Column(name = "Date")
     private String Date;
+    @Column(name = "kat_id")
+    // @ForeignKey
     private int Kategoria_id;
+
+    public Info() {
+
+    }
 
     public String getTitle() {
         return Title;

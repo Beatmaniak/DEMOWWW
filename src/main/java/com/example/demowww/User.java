@@ -1,17 +1,24 @@
 package com.example.demowww;
 
+import com.sun.istack.NotNull;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.util.Objects;
+
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "user_data")
 public class User {
     //primary key
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "SN")
-    private int sn;
+    @Column(name = "SN",updatable = false)
+    private Long sn;
     @Column(name = "Name")
     @Size(min=3,max=20,message = "Name has to be between 3 to 20 characters long")
     @NotBlank(message = "Field must not be empty")
@@ -29,15 +36,36 @@ public class User {
     @NotBlank(message = "Field must not be empty")
     private String password;
     @Column(name = "age")
-    @Min(value=18,message = "To create and account you must to be 18 or above")
-    @NotBlank(message = "Field must not be empty")
+    @Range(min=18, max=999)
+    //@NotEmpty(message="Field must not be empty")
     private int age;
 
-    public int getSn() {
+    public User(Long sn, String name, String surname, String login, String password,int age) {
+        this.sn = sn;
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.age = age;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getAge() == user.getAge() && getSn().equals(user.getSn()) && getName().equals(user.getName()) && getSurname().equals(user.getSurname()) && getLogin().equals(user.getLogin()) && getPassword().equals(user.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSn(), getName(), getSurname(), getLogin(), getPassword(), getAge());
+    }
+
+    public Long getSn() {
         return sn;
     }
 
-    public void setSn(int sn) {
+    public void setSn(Long sn) {
         this.sn = sn;
     }
 
@@ -80,4 +108,5 @@ public class User {
     public void setAge(int age) {
         this.age = age;
     }
+
 }
