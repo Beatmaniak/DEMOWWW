@@ -25,23 +25,22 @@ public class User implements UserDetails {
     private Long sn;
     @Column(name = "Name")
     @Size(min=3,max=20,message = "Name has to be between 3 to 20 characters long")
-    //@NotBlank(message = "Field must not be empty")
+    @NotBlank(message = "Field must not be empty")
     private String name;
     @Column(name = "surname")
     @Size(min=3,max=50,message = "Surname has to be between 3 to 50 characters long")
-    //@NotBlank(message = "Field must not be empty")
+    @NotBlank(message = "Field must not be empty")
     private String surname;
     @Column(name = "login")
     @Size(min=3,max=20,message = "Login has to be between 3 to 20 characters long")
-    //@NotBlank(message = "Field must not be empty")
+    @NotBlank(message = "Field must not be empty")
     private String login;
     @Column(name = "password")
     @Size(min=5,message = "Password has to be at least 5 characters long")
-    //@NotBlank(message = "Field must not be empty")
+    @NotBlank(message = "Field must not be empty")
     private String password;
     @Column(name = "age")
-    //@Range(min=18, max=999)
-    //@NotEmpty(message="Field must not be empty")
+    @Range(min=18, max=999)
     private int age;
     @Column(name = "AccNotLocked")
     private boolean notLocked;
