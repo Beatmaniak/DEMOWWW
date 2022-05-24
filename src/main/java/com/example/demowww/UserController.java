@@ -18,14 +18,14 @@ public class UserController{
     private UserRepository userRepository;
     public UserController(UserRepository userRepository){this.userRepository = userRepository;}
 
-    @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
-    public String getUsers(Model model) throws Exception{
-        List<User> users=getListofUsers();
-        UserListContainer userList= new UserListContainer();
-        userList.setUsers(users);
-        model.addAttribute("Users",userList);
-        return "showUsers";
-    }
+//    @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
+//    public String getUsers(Model model) throws Exception{
+//        List<User> users=getListofUsers();
+//        UserListContainer userList= new UserListContainer();
+//        userList.setUsers(users);
+//        model.addAttribute("Users",userList);
+//        return "showUsers";
+//    }
 
     private List<User> getListofUsers() {
         List<User> users= new ArrayList<User>();

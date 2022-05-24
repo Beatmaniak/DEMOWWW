@@ -12,7 +12,6 @@ import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
-@RestController
 public class SignupController {
     @Autowired
     UserRepository userRepository;
@@ -56,15 +55,15 @@ public class SignupController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String add(Model model) {
         model.addAttribute("user", new User());
-        return "add-user";
+        return "register";
     }
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processAdd(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "add-user";
+            return "register";
         }
 
-        return "person-added-successfully";
+        return "login";
     }
     }
 

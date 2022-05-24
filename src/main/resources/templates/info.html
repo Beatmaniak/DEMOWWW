@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Product Manager</title>
+</head>
+<body>
+<div align="center">
+    <h1>Lista notatek</h1>
+    <a href="/newInfo">Stwórz nową notatkę</a>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>ID notatki</th>
+            <th>Tytuł notatki</th>
+            <th>Opis notatki</th>
+            <th>Data notatki</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="info : ${infoList}">
+            <td th:text="${info.id}">ID notatki</td>
+            <td th:text="${info.title}">Tytuł notatki</td>
+            <td th:text="${info.description}">Opis notatki</td>
+            <td th:text="${info.date}">Data notatki</td>
+            <td>
+                <a th:href="@{'/edit/' + ${info.id}}">Edit</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{'/delete/' + ${info.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Info {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",updatable = false,insertable = false)
     private Long id;
     @Column(name = "Title")
@@ -18,7 +18,11 @@ public class Info {
     // @ForeignKey
     private int Kategoria_id;
 
-    public Info() {
+    public Long getId(){
+        return id;
+    }
+
+    protected Info() {
 
     }
 
