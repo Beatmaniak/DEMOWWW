@@ -3,27 +3,28 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>Product Manager</title>
+    <title>User Manager</title>
 </head>
 <body>
 <div align="center">
-    <h1>Product List</h1>
-    <a href="/new">Create New Product</a>
+    <h1>Lista kont</h1>
+    <a href="/info">Kliknij tutaj do tabeli z notatkami!</a>
     <br/><br/>
     <table border="1" cellpadding="10">
         <thead>
         <tr>
-            <th>Product ID</th>
+            <th>ID</th>
             <th>Name</th>
-            <th>Brand</th>
-            <th>Made In</th>
-            <th>Price</th>
-            <th>Actions</th>
+            <th>Surname</th>
+            <th>Login</th>
+            <th>Password</th>
+            <th>Age</th>
+            <th>Locked</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${userList}">
-            <td th:text="${user.sn}">Product ID</td>
+            <td th:text="${user.sn}">ID</td>
             <td th:text="${user.name}">Name</td>
             <td th:text="${user.surname}">Surname</td>
             <td th:text="${user.login}">Login</td>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,6 +21,11 @@ public class InfoController {
     @RequestMapping("/info")
     public String viewInfoPage(Model model){
         List<Info> infoList= service.listAll();
+        List<String > category=new ArrayList<>();
+        category.add("Zakupy");
+        category.add("Rozrywka");
+        model.addAttribute("category",category);
+
         model.addAttribute("infoList",infoList);
 
         return "info";

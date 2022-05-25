@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <title>Dodaj nową notatkę</title>
@@ -24,6 +24,15 @@
             <tr>
                 <td>Data notatki</td>
                 <td><input type="date" th:field="*{date}" /></td>
+            </tr>
+            <tr>
+                <td>Nazwa kategorii:</td>
+                <td>
+                    <select class="form-control" id="dropDownList">
+                        <form:label path="category">Profession:</form:label>
+                        <form:select path="category" items="${category}"></form:select>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td colspan="2"><button type="submit">Zapisz</button> </td>
