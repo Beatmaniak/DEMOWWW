@@ -30,6 +30,12 @@ public class AdminSignupController{
         return mav;
     }
 
+    @RequestMapping("/delete/{sn}")
+    public String deleteInfo(@PathVariable(name = "sn") Long sn) {
+        service.delete(sn);
+        return "redirect:/adminsignup";
+    }
+
     @GetMapping("/adminsignup")
     public String login(@RequestParam(name="name", required=false, defaultValue="World") String name) {
         return "adminsignup";
