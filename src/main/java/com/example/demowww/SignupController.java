@@ -17,8 +17,8 @@ public class SignupController {
     UserRepository userRepository;
     @Autowired
     private SecurityUserDetailsService userDetailsManager;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
 
     @GetMapping("/")
@@ -39,11 +39,13 @@ public class SignupController {
     public String addUser(@RequestParam Map<String, String> body, @Valid User user2, BindingResult bindingResult) {
         User user = new User();
         user.setLogin(body.get("login"));
-        user.setPassword(passwordEncoder.encode(body.get("password")));
+//        user.setPassword(passwordEncoder.encode(body.get("password")));
+        user.setPassword(body.get("password"));
         user.setNotLocked(true);
         user.setAge(Integer.parseInt(body.get("age")));
         user.setName(body.get("name"));
         user.setSurname(body.get("surname"));
+
         userDetailsManager.createUser(user);
         userRepository.save(user);
         if (bindingResult.hasErrors()) {

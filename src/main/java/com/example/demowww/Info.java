@@ -14,9 +14,9 @@ public class Info {
     private String Description;
     @Column(name = "Date")
     private String Date;
-    @Column(name = "kat_id")
-    // @ForeignKey
-    private int Kategoria_id;
+
+    @Column(name="Category")
+    private String Category;
 
     public Long getId(){
         return id;
@@ -50,17 +50,14 @@ public class Info {
         Date = date;
     }
 
-    public int getKategoria_id() {
-        return Kategoria_id;
-    }
+    public String getCategory(){ return Category;}
 
-    public void setKategoria_id(int kategoria_id) {
-        Kategoria_id = kategoria_id;
-    }
+    public void setCategory(String category){Category=category;}
 
-    public Info(String title, String description, String date) {
+    public Info(String title, String description, String date,String category) {
         Title = title;
         Description = description;
         Date = date;
+        Category=category;
     }
 }

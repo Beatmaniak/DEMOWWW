@@ -17,6 +17,7 @@
             <th>Tytuł notatki</th>
             <th>Opis notatki</th>
             <th>Data notatki</th>
+            <th>Kategoria</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@
             <td th:text="${info.title}">Tytuł notatki</td>
             <td th:text="${info.description}">Opis notatki</td>
             <td th:text="${info.date}">Data notatki</td>
+            <td th:text="${info.category}">Kategoria</td>
             <td>
                 <a th:href="@{'/edit/' + ${info.id}}">Edit</a>
                 &nbsp;&nbsp;&nbsp;

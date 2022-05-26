@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
         @Component
         public class AuthProvider implements AuthenticationProvider {
             private static final int ATTEMPTS_LIMIT = 3;
-            @Autowired
-            private SecurityUserDetailsService userDetailsService;
-            @Autowired
-            private PasswordEncoder passwordEncoder;
+//            @Autowired
+//            private SecurityUserDetailsService userDetailsService;
+//            @Autowired
+//            private PasswordEncoder passwordEncoder;
             @Autowired
             private AttemptsRepository attemptsRepository;
             @Autowired

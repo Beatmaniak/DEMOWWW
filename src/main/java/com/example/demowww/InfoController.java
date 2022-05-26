@@ -18,7 +18,7 @@ public class InfoController {
     @Autowired
     private InfoService service;
 
-    @RequestMapping("/info")
+    @RequestMapping(value="/info")
     public String viewInfoPage(Model model){
         List<Info> infoList= service.listAll();
         List<String > category=new ArrayList<>();
@@ -30,7 +30,7 @@ public class InfoController {
 
         return "info";
     }
-    @RequestMapping("/newInfo")
+    @RequestMapping(value="/newInfo")
     public String showNewInfoForm(Model model){
         Info info=new Info();
         model.addAttribute("info",info);
@@ -45,15 +45,15 @@ public class InfoController {
         return "redirect:/info";
     }
 
-    @RequestMapping("/edit/{id}")
+    @RequestMapping(value="/edit/{id}")
     public ModelAndView showEditInfoPage(@PathVariable(name = "id") Long id) {
-        ModelAndView mav = new ModelAndView("edit_info");
+        ModelAndView edit = new ModelAndView("edit_info");
         Info info = service.get(id);
-        mav.addObject("info", info);
+        edit.addObject("info", info);
 
-        return mav;
+        return edit;
     }
-    @RequestMapping("/delete/{id}")
+    @RequestMapping(value="/delete/{id}")
     public String deleteInfo(@PathVariable(name = "id") Long id) {
         service.delete(id);
         return "redirect:/info";

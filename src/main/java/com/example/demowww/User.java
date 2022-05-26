@@ -3,19 +3,18 @@ package com.example.demowww;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Data
-@NoArgsConstructor
 @Table(name = "user_data")
 public class User implements UserDetails {
     //primary key
@@ -45,6 +44,9 @@ public class User implements UserDetails {
     @Column(name = "AccNotLocked")
     private boolean notLocked;
 
+
+//    private List<GrantedAuthority> role;
+
     public User(Long sn, String name, String surname, String login, String password,int age,boolean notLocked) {
         this.sn = sn;
         this.name = name;
@@ -53,10 +55,14 @@ public class User implements UserDetails {
         this.password = password;
         this.age = age;
         this.notLocked = notLocked;
+//        this.Authority=authority;
     }
 
     protected User(){
 
+    }
+
+    public User(long sn, String jan, String jan1, String janek, String janek1, int age, boolean notLocked, List<GrantedAuthority> admin) {
     }
 
     @Override
@@ -156,4 +162,5 @@ public class User implements UserDetails {
     public void setNotLocked(boolean notLocked) {
         this.notLocked = notLocked;
     }
+
 }

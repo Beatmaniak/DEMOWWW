@@ -14,26 +14,33 @@
                      class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form method="post">
+                <div th:if="${param.error}">
+                    nieprawidłowe dane
+                </div>
+                <div th:if="${param.logout}">
+                    zostałeś wylogowany
+                </div>
+                <form method="post" th:action="@{/login}">
                     <!-- login input -->
+
                     <div class="form-outline mb-4">
                         <input type="text" id="login" class="form-control form-control-lg"
-                               placeholder="Enter a valid login" />
+                               placeholder="Enter a valid login" name="login"/>
                         <label class="form-label" for="login">Login</label>
                          </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-3">
-                        <input type="password" id="form3Example4" class="form-control form-control-lg"
-                               placeholder="Enter password" />
-                        <label class="form-label" for="form3Example4">Password</label>
+                        <input type="password" id="password" class="form-control form-control-lg"
+                               placeholder="Enter password" name="password" />
+                        <label class="form-label" for="password">Password</label>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="button" class="btn btn-primary btn-lg"
+                        <button type="submit" class="btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/signup" class="link-danger">Register</a></p>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/register" class="link-danger">Register</a></p>
                     </div>
                     </div>
                 </form>

@@ -14,15 +14,15 @@ import java.util.List;
 public class AdminSignupController{
     private UserService service;
 
-    @RequestMapping("/")
+    @RequestMapping("/adminsignup")
     public String viewHomePage(Model model) {
         List<User> userList = service.usersAll();
         model.addAttribute("userList",userList);
 
         return "adminsignup";
     }
-    @RequestMapping("/edit/{id}")
-    public ModelAndView showEditProductPage(@PathVariable(name = "sn") Long sn) {
+    @RequestMapping("/edit/{sn}")
+    public ModelAndView showEditUserPage(@PathVariable(name = "sn") Long sn) {
         ModelAndView mav = new ModelAndView("edit_user");
         User user = service.get(sn);
         mav.addObject("user",user);
